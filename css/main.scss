@@ -1,0 +1,26 @@
+body{
+  font-family: "Helvetica";
+  text-align: center;
+  padding: 50px 20px 0;
+  background: #f4f4f7;
+  color: #444;
+  margin: 0;
+}
+
+h1{
+  font-size: 46px;
+  line-height: 1.2em;
+  padding: 10px 0;
+  margin-top: 0px;
+}
+
+h3{
+  font-weight: 300;
+}
+#game {
+  background-color: white;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  .car { cursor: move; }
+}
