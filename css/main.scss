@@ -17,10 +17,14 @@ h1{
 h3{
   font-weight: 300;
 }
+#content {
+  padding: 40px;
+  background-color: white;
+}
 #game {
   background-color: white;
   width: 600px;
   height: 600px;
   margin: 0 auto;
-  .car { cursor: move; }
+  .car { cursor: pointer; }
 }
