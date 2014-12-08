@@ -4,3 +4,5 @@ Clone of the popular [Rush Hour](http://en.wikipedia.org/wiki/Rush_Hour_%28board
 ~~~bash
 harp server
 ~~~
+
+Watch a live demo [here](http://bartolsthoorn.github.io/rush-hour-clone/).
