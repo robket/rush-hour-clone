@@ -1,7 +1,7 @@
 body{
   font-family: "Helvetica";
   text-align: center;
-  padding: 50px 20px 0;
+  padding: 20px 20px 0;
   background: #f4f4f7;
   color: #444;
   margin: 0;
@@ -12,6 +12,7 @@ h1{
   line-height: 1.2em;
   padding: 10px 0;
   margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 h3{
@@ -19,12 +20,28 @@ h3{
 }
 #content {
   padding: 40px;
+  padding-bottom: 20px;
   background-color: white;
 }
 #game {
+  position: relative;
   background-color: white;
   width: 600px;
   height: 600px;
   margin: 0 auto;
+  margin-bottom: 40px;
   .car { cursor: pointer; }
+  .exit {
+    position: absolute;
+    right: -42px;
+    font-weight: bold;
+    top: 238px;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+    filter: none;
+    &:after { content: 'EXIT' }
+  }
 }

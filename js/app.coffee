@@ -15,31 +15,44 @@ intersection = (a1, a2) ->
   a1.filter (n) -> a2.indexOf(n) != -1
 
 # Drag behaviour
-carFreedom = []
-startPosition = []
+[carFreedom, startXY] = [[], 0]
+
 dragStart = (d) ->
   carFreedom = detectFreedom(d3.select(this))
-  console.log carFreedom
-  startPosition = [d.x, d.y]
+  startXY = if d.orientation is 'horizontal' then d.x else d.y
+
 dragMove = (d) ->
-  xy = [d3.event.x, d3.event.y]
+  axis = if d.orientation is 'horizontal' then 'x' else 'y'
+  xy = d3.event[axis]
+
   car = d3.select(this)
-  relativeXY = xy.map (n, i) -> n - startPosition[i]
-  if d.orientation == 'horizontal'
-    console.log [relativeXY[0], carFreedom[1] * scalar]
-    leftBound = (relativeXY[0] < 0 and Math.abs(relativeXY[0]) < carFreedom[0] * scalar)
-    rightBound = (relativeXY[0] >= 0 and relativeXY[0] < carFreedom[1] * scalar)
-    if (leftBound or rightBound)
-      car.attr('x', d.x = d3.event.x)
-    else
-      # TODO: Set min/max position instead of stopping
-      console.log 'collision'
+
+  relativeXY = xy - startXY
+  leftBound = (relativeXY < 0 and Math.abs(relativeXY) < carFreedom[0] * scalar)
+  rightBound = (relativeXY >= 0 and relativeXY < carFreedom[1] * scalar)
+  if (leftBound or rightBound)
+    # Movement within bounds, move car
+    car.attr(axis, d[axis] = xy)
   else
-    # TODO: Do calculations for Y
-    car.attr('y', d.y = d3.event.y)
+    # Collision detected, set min/max position
+    if relativeXY < 0
+      car.attr(axis, d[axis] = startXY - carFreedom[0] * scalar)
+    else
+      car.attr(axis, d[axis] = startXY + carFreedom[1] * scalar)
 
 dragEnd = (d) ->
-  console.log 'end'
+  xy = if d.orientation is 'horizontal' then d.x else d.y
+  distance = Math.round((xy - startXY) / scalar) # in tiles
+  positions = boardPositions(d.position, d.orientation)
+  newPosition = positions[positions.indexOf(d.position) + distance]
+
+  console.log 'car moved' if Math.abs(distance) > 0
+
+  d3.select(this)
+    .attr('data-position', d.position = newPosition)
+    .transition()
+    .attr('x', d.x = positionToX(d.position))
+    .attr('y', d.y = positionToY(d.position))
 
 drag = d3.behavior.drag()
   .origin (d) -> d
@@ -49,23 +62,15 @@ drag = d3.behavior.drag()
 
 # Calculate car freedom
 detectFreedom = (car) ->
-  console.log 'Determining freedom for car with position: ', car.attr('data-position'), car.attr('data-orientation'), carPositions(car)
   pos = car.attr('data-position')
-  if car.attr('data-orientation') is 'horizontal'
-    o = intersection(horizontalPositions(pos), occupiedPositions())
-    upper = d3.min(o.filter (n) -> n > d3.max(carPositions(car)))
-    lower = d3.max(o.filter (n) -> n < d3.min(carPositions(car)))
-  else
-    o = intersection(verticalPositions(pos), occupiedPositions())
-    upper = d3.min(o.filter (n) -> n > d3.max(carPositions(car)))
-    lower = d3.max(o.filter (n) -> n < d3.min(carPositions(car)))
+  orientation = car.attr('data-orientation')
+  positions = boardPositions(pos, orientation)
+  o = intersection(positions, occupiedPositions())
+
+  upper = d3.min(o.filter (n) -> n > d3.max(carPositions(car)))
+  lower = d3.max(o.filter (n) -> n < d3.min(carPositions(car)))
 
   # Convert to relative freedom
-  if car.attr('data-orientation') is 'horizontal'
-    positions = horizontalPositions(pos)
-  else
-    positions = verticalPositions(pos)
-
   if upper
     u = positions.indexOf(upper) - positions.indexOf(d3.max(carPositions(car)))
   else
@@ -73,11 +78,11 @@ detectFreedom = (car) ->
   l = positions.indexOf(d3.min(carPositions(car))) - positions.indexOf(lower)
   return [l - 1, u - 1]
 
-horizontalPositions = (position) ->
-  d3.range(position - position % board, position - position % board + board)
-
-verticalPositions = (position) ->
-  d3.range(position % board, Math.pow(board, 2), board)
+boardPositions = (position, orientation) ->
+  if orientation is 'horizontal'
+    d3.range(position - position % board, position - position % board + board)
+  else
+    d3.range(position % board, Math.pow(board, 2), board)
 
 occupiedPositions = ->
   positions = []
@@ -89,11 +94,12 @@ carPositions = (car) ->
   pos = parseInt car.attr('data-position')
   length = parseInt car.attr('data-length')
   orientation = car.attr('data-orientation')
+  possiblePositions = boardPositions(pos, orientation)
   if orientation is 'horizontal'
-    return horizontalPositions(pos).slice(pos % board, pos % board + length)
+    return possiblePositions.slice(pos % board, pos % board + length)
   else
     start = Math.floor(pos/board)
-    return verticalPositions(pos).slice(start, start + length)
+    return possiblePositions.slice(start, start + length)
 
 positionToX = (position) ->
   scalar * (position % board) + carPadding
