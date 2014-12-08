@@ -23,6 +23,7 @@ h3{
   padding-bottom: 20px;
   background-color: white;
 }
+#status { font-weight: bold; }
 #game {
   position: relative;
   background-color: white;
@@ -44,4 +45,24 @@ h3{
     filter: none;
     &:after { content: 'EXIT' }
   }
+}
+#game-stats {
+  margin: 0px;
+  padding: 0px;
+  li {
+    margin: 0px;
+    list-style: none;
+    display: inline-block;
+    width: 196px;
+    &:first-child {
+      text-align: left;
+    }
+    &:last-child {
+      text-align: right;
+    }
+    .value {
+      font-weight: bold;
+    }
+  }
+  #timer { font-weight: bold; }
 }

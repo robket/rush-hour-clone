@@ -10,6 +10,12 @@ board = 6 # positions
 scalar = 100 # px
 tilePadding = 16
 carPadding = 6
+moves = 0 # score (lower is better)
+
+startMoment = moment()
+updateTimer = ->
+  d3.select('#timer').text(moment().subtract(startMoment).format('mm:ss'))
+timer = setInterval(updateTimer, 1000)
 
 intersection = (a1, a2) ->
   a1.filter (n) -> a2.indexOf(n) != -1
@@ -39,6 +45,12 @@ dragMove = (d) ->
       car.attr(axis, d[axis] = startXY - carFreedom[0] * scalar)
     else
       car.attr(axis, d[axis] = startXY + carFreedom[1] * scalar)
+      if !rightBound and d.player and boardPositions(board-1, 'vertical').indexOf(d.position + d.length - 1 + carFreedom[1]) > -1
+        # Player won
+        time = d3.select('#timer').text()
+        clearInterval(timer)
+        d3.select('#status')
+          .text('You won! ' + time + ' and ' + (moves + 1) + ' moves')
 
 dragEnd = (d) ->
   xy = if d.orientation is 'horizontal' then d.x else d.y
@@ -46,7 +58,7 @@ dragEnd = (d) ->
   positions = boardPositions(d.position, d.orientation)
   newPosition = positions[positions.indexOf(d.position) + distance]
 
-  console.log 'car moved' if Math.abs(distance) > 0
+  d3.select('#moves').text(++moves) if Math.abs(distance) > 0
 
   d3.select(this)
     .attr('data-position', d.position = newPosition)
