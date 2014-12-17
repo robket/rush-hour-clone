@@ -13,6 +13,7 @@ tilePadding = Math.round(16 * fr)
 carPadding = Math.round(6 * fr)
 moves = 0 # score (lower is better)
 perfect_score = 0
+max_score = 30 # max = perfect_score + max_score
 win = false
 identifier = d3.select(container).attr('data-identifier')
 
@@ -22,8 +23,19 @@ timeLeft = 0
 
 updateTimer = ->
   duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds')
-  timeLeft = moment(duration.asMilliseconds()).format('mm:ss')
-  d3.select('#timer').text(timeLeft)
+  if duration.asMilliseconds() < 0
+    clearInterval(timer)
+    moves = perfect_score + max_score
+    win = true # prevent overwriting score
+    time = '00:00'
+    d3.select('#status')
+      .text('Time is up! ' + time + ' and ' + moves + ' moves')
+    d3.select('#status2').text('Please wait while we save the statistics')
+    $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves }},
+      (result) -> d3.select('#status2').text(result)
+  else
+    timeLeft = moment(duration.asMilliseconds()).format('mm:ss')
+    d3.select('#timer').text(timeLeft)
 timer = 0
 
 intersection = (a1, a2) ->
@@ -74,10 +86,10 @@ dragEnd = (d) ->
   description = '' + d.position + ' to ' + newPosition
 
   if Math.abs(distance) > 0
-    if moves < (perfect_score + 30)
+    if moves < (perfect_score + max_score)
       moves++
       $.post '/store', {"move": { level: level, identifier: identifier, time: timeLeft, moves: moves, description: description }},
-        (result) -> console.log(result)
+        (result) -> console.log('Move ' + result)
 
     d3.select('#moves').text(moves)
 
@@ -144,8 +156,8 @@ d3.json 'js/level'+level+'.json', (error, json) ->
   console.warn(error) if error
 
   perfect_score = json.perfect_score
-  level = json.level
-  d3.select('#status').text(level)
+  difficulty = json.level
+  d3.select('#status').text(difficulty)
   d3.select('#perfect-score').text(perfect_score)
 
   squares = svg.append('g')

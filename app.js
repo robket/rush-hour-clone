@@ -26,7 +26,7 @@ app.post('/store', function (req, res) {
       winner = json.winner
       sheet.addRow(1, {
         identifier: winner.identifier,
-        level: level,
+        level: move.level,
         moves: winner.moves,
         time: winner.time,
         UA: user_agent,
@@ -37,7 +37,7 @@ app.post('/store', function (req, res) {
       move = json.move
       sheet.addRow(2, {
         identifier: move.identifier,
-        level: level,
+        level: move.level,
         moves: move.moves,
         time: move.time,
         description: move.description,
