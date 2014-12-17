@@ -1,0 +1,22 @@
+doctype
+html
+  head
+    link(rel="stylesheet" href="css/main.css")
+    script(src="http://d3js.org/d3.v3.min.js" charset="utf-8")
+    script(src="http://momentjs.com/downloads/moment.min.js" charset="utf-8")
+    script(src="/js/zepto.min.js" charset="utf-8")
+    meta(name="robots" content="NOINDEX, NOFOLLOW")
+  body
+    p#status
+    p#status2
+    #content
+      ul#game-stats
+        li Perfect score: 
+          span#perfect-score.value
+        li#timer
+        li Moves: 
+          span#moves.value 0
+      #game(data-level=level, data-identifier=identifier)
+        .exit
+      p Click and drag the cars to guide the green car to the exit.
+    script(src="js/puzzle.js")

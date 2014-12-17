@@ -7,15 +7,24 @@ svg = d3.select(container)
   .attr('height', '100%')
 
 board = 6 # positions
-scalar = 100 # px
-tilePadding = 16
-carPadding = 6
+fr = 0.80
+scalar = Math.round(100 * fr) # px
+tilePadding = Math.round(16 * fr)
+carPadding = Math.round(6 * fr)
 moves = 0 # score (lower is better)
+perfect_score = 0
+win = false
+identifier = d3.select(container).attr('data-identifier')
 
-startMoment = moment()
+duration = moment.duration(5, 'minutes')
+interval = 1000
+timeLeft = 0
+
 updateTimer = ->
-  d3.select('#timer').text(moment().subtract(startMoment).format('mm:ss'))
-timer = setInterval(updateTimer, 1000)
+  duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds')
+  timeLeft = moment(duration.asMilliseconds()).format('mm:ss')
+  d3.select('#timer').text(timeLeft)
+timer = 0
 
 intersection = (a1, a2) ->
   a1.filter (n) -> a2.indexOf(n) != -1
@@ -47,18 +56,30 @@ dragMove = (d) ->
       car.attr(axis, d[axis] = startXY + carFreedom[1] * scalar)
       if !rightBound and d.player and boardPositions(board-1, 'vertical').indexOf(d.position + d.length - 1 + carFreedom[1]) > -1
         # Player won
-        time = d3.select('#timer').text()
-        clearInterval(timer)
-        d3.select('#status')
-          .text('You won! ' + time + ' and ' + (moves + 1) + ' moves')
+        if !win
+          win = true
+          time = d3.select('#timer').text()
+          clearInterval(timer)
+          d3.select('#status')
+            .text('You won! ' + time + ' and ' + (moves + 1) + ' moves')
+          d3.select('#status2').text('Please wait while we save your score')
+          $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves + 1 }},
+            (result) -> d3.select('#status2').text(result)
 
 dragEnd = (d) ->
   xy = if d.orientation is 'horizontal' then d.x else d.y
   distance = Math.round((xy - startXY) / scalar) # in tiles
   positions = boardPositions(d.position, d.orientation)
   newPosition = positions[positions.indexOf(d.position) + distance]
+  description = '' + d.position + ' to ' + newPosition
 
-  d3.select('#moves').text(++moves) if Math.abs(distance) > 0
+  if Math.abs(distance) > 0
+    if moves < (perfect_score + 30)
+      moves++
+      $.post '/store', {"move": { level: level, identifier: identifier, time: timeLeft, moves: moves, description: description }},
+        (result) -> console.log(result)
+
+    d3.select('#moves').text(moves)
 
   d3.select(this)
     .attr('data-position', d.position = newPosition)
@@ -118,8 +139,14 @@ positionToX = (position) ->
 positionToY = (position) ->
   scalar * Math.floor(position/board) + carPadding
 
-d3.json 'js/level1.json', (error, json) ->
+level = d3.select(container).attr('data-level')
+d3.json 'js/level'+level+'.json', (error, json) ->
   console.warn(error) if error
+
+  perfect_score = json.perfect_score
+  level = json.level
+  d3.select('#status').text(level)
+  d3.select('#perfect-score').text(perfect_score)
 
   squares = svg.append('g')
     .attr('class', 'tiles')
@@ -163,3 +190,16 @@ d3.json 'js/level1.json', (error, json) ->
       else scalar) - carPadding * 2
     .attr 'fill', (d) -> if d.player then colours[1] else colours[0]
     .call(drag)
+
+    overlay = svg.append('rect')
+      .attr 'id', 'overlay'
+      .attr 'x', 0
+      .attr 'y', 0
+      .attr 'height', scalar * board
+      .attr 'width', scalar * board
+      .attr 'fill', '#444'
+      .on 'click', ->
+        d3.select(this).remove()
+        timeLeft = moment(duration.asMilliseconds()).format('mm:ss')
+        d3.select('#timer').text(timeLeft)
+        timer = setInterval(updateTimer, interval)

@@ -29,8 +29,8 @@ h3{
 #game {
   position: relative;
   background-color: white;
-  width: 600px;
-  height: 600px;
+  width: 480px;
+  height: 480px;
   margin: 0 auto;
   margin-bottom: 40px;
   .car { cursor: pointer; }
@@ -38,7 +38,7 @@ h3{
     position: absolute;
     right: -42px;
     font-weight: bold;
-    top: 238px;
+    top: 190px;
     -webkit-transform: rotate(270deg);
     -moz-transform: rotate(270deg);
     -ms-transform: rotate(270deg);
@@ -55,7 +55,7 @@ h3{
     margin: 0px;
     list-style: none;
     display: inline-block;
-    width: 196px;
+    width: 157px;
     &:first-child {
       text-align: left;
     }

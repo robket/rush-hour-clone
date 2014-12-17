@@ -1,0 +1,26 @@
+{
+  "name": "rush-hour-survey",
+  "version": "1.0.0",
+  "description": "Survey version of the Rush Hour puzzle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bartolsthoorn/rush-hour-clone"
+  },
+  "author": "Bart Olsthoorn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bartolsthoorn/rush-hour-clone/issues"
+  },
+  "homepage": "https://github.com/bartolsthoorn/rush-hour-clone",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "3.x",
+    "google-spreadsheet": "*",
+    "harp": "*",
+    "jade": "*"
+  }
+}
