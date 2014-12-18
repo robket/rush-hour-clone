@@ -1,0 +1,72 @@
+{
+	"level": "moderate",
+  "perfect_score": 25,
+  "cars": [
+    {
+      "orientation": "horizontal",
+      "position": 13,
+      "length": 2,
+      "player": true
+    },
+	{
+      "orientation": "horizontal",
+      "position": 3,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 2,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 30,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 33,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 0,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 2,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 19,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 26,
+      "length": 2,
+      "player": false
+    },
+	{
+      "orientation": "vertical",
+      "position": 9,
+      "length": 2,
+      "player": false
+    },
+	{
+      "orientation": "vertical",
+      "position": 11,
+      "length": 3,
+      "player": false
+    }
+  ]
+}

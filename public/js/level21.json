@@ -1,0 +1,60 @@
+{	
+	"level": "hard",
+  "perfect_score": 26,
+  "cars": [
+    {
+      "orientation": "horizontal",
+      "position": 12,
+      "length": 2,
+      "player": true
+    },
+	{
+      "orientation": "horizontal",
+      "position": 10,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 25,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 18,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 8,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 3,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 15,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 16,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 28,
+      "length": 2,
+      "player": false
+    }
+  ]
+}
