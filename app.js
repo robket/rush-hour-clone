@@ -50,6 +50,9 @@ app.post('/store', function (req, res) {
   res.send('Saved, thank you');
 })
 
+app.get('/', function(req, res) {
+  res.redirect('/1')
+})
 app.get('/:id', function (req, res) {
   var date = new Date();
   var components = [
@@ -63,5 +66,7 @@ app.get('/:id', function (req, res) {
   ];
 
   var id = components.join(".");
-  res.render('../public/index', { identifier: id, level: req.params.id });
+  var level = parseInt(req.params.id)
+  var next_level = (level + 1).toString()
+  res.render('../public/game', { identifier: id, level: level.toString(), next_level: next_level });
 })

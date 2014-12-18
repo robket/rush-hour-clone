@@ -20,4 +20,7 @@ html
       #game(data-level=level, data-identifier=identifier)
         .exit
       p Click and drag the cars to guide the green car to the exit.
+      if next_level != "33"
+        p
+          a(href="/"+next_level) Next level
     script(src="js/puzzle.js")
