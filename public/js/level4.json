@@ -1,10 +1,10 @@
 {
-	 "level": "Oefenlevel 4/4",
-  "perfect_score": 16,
+	"level": "Oefenlevel 4/4",
+  "perfect_score": 24,
   "cars": [
     {
       "orientation": "horizontal",
-      "position": 15,
+      "position": 13,
       "length": 2,
       "player": true
     },
@@ -16,38 +16,20 @@
     },
     {
       "orientation": "horizontal",
-      "position": 2,
+      "position": 27,
       "length": 2,
       "player": false
     },
     {
       "orientation": "horizontal",
-      "position": 7,
+      "position": 32,
       "length": 2,
       "player": false
     },
     {
       "orientation": "horizontal",
-      "position": 9,
+      "position": 34,
       "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 28,
-      "length": 2,
-      "player": false
-    },
-	{
-      "orientation": "horizontal",
-      "position": 33,
-      "length": 3,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 5,
-      "length": 3,
       "player": false
     },
     {
@@ -56,37 +38,48 @@
       "length": 2,
       "player": false
     },
-    {
+	{
       "orientation": "vertical",
-      "position": 18,
+      "position": 25,
       "length": 2,
       "player": false
     },
-	{
+    {
       "orientation": "vertical",
-      "position": 13,
+      "position": 2,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 20,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 3,
       "length": 3,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 14,
+      "position": 4,
       "length": 2,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 26,
+      "position": 11,
       "length": 2,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 21,
+      "position": 23,
       "length": 2,
       "player": false
     }
 	
   ]
 }
-

@@ -1,10 +1,10 @@
 {
   "level": "Level 4/6",
-  "perfect_score": 24,
+  "perfect_score": 16,
   "cars": [
     {
       "orientation": "horizontal",
-      "position": 13,
+      "position": 15,
       "length": 2,
       "player": true
     },
@@ -16,20 +16,38 @@
     },
     {
       "orientation": "horizontal",
-      "position": 27,
+      "position": 2,
       "length": 2,
       "player": false
     },
     {
       "orientation": "horizontal",
-      "position": 32,
+      "position": 7,
       "length": 2,
       "player": false
     },
     {
       "orientation": "horizontal",
-      "position": 34,
+      "position": 9,
       "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 28,
+      "length": 2,
+      "player": false
+    },
+	{
+      "orientation": "horizontal",
+      "position": 33,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 5,
+      "length": 3,
       "player": false
     },
     {
@@ -38,48 +56,37 @@
       "length": 2,
       "player": false
     },
+    {
+      "orientation": "vertical",
+      "position": 18,
+      "length": 2,
+      "player": false
+    },
 	{
       "orientation": "vertical",
-      "position": 25,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 2,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 20,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 3,
+      "position": 13,
       "length": 3,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 4,
+      "position": 14,
       "length": 2,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 11,
+      "position": 26,
       "length": 2,
       "player": false
     },
 	{
       "orientation": "vertical",
-      "position": 23,
+      "position": 21,
       "length": 2,
       "player": false
     }
 	
   ]
 }
+
