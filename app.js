@@ -66,6 +66,9 @@ app.get('/:id', function (req, res) {
   ];
 
   var id = components.join(".");
+  if (req.query['id']) {
+    id = req.query['id'];
+  }
   var level = parseInt(req.params.id)
   var next_level = (level + 1).toString()
   res.render('../public/game', { identifier: id, level: level.toString(), next_level: next_level });

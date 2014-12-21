@@ -17,7 +17,7 @@ max_score = 20 # max = perfect_score + max_score
 win = false
 identifier = d3.select(container).attr('data-identifier')
 
-duration = moment.duration(3, 'minutes')
+duration = moment.duration(4, 'minutes')
 interval = 1000
 timeLeft = 0
 
