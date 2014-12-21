@@ -1,5 +1,5 @@
 {
-  "level": "easy",
+  "level": "Level 3/6",
   "perfect_score": 23,
   "cars": [
     {
@@ -68,5 +68,6 @@
       "length": 2,
       "player": false
     }
+	
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "level": "moderate",
-  "perfect_score": 21,
+	"level": "Level 2/6",
+  "perfect_score": 20,
   "cars": [
     {
       "orientation": "horizontal",
@@ -10,63 +10,65 @@
     },
 	{
       "orientation": "horizontal",
-      "position": 4,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 10,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 19,
-      "length": 3,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 30,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 32,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
       "position": 1,
       "length": 2,
       "player": false
     },
     {
-      "orientation": "vertical",
-      "position": 2,
-      "length": 3,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 18,
-      "length": 2,
-      "player": false
-    },
-	{
-      "orientation": "vertical",
+      "orientation": "horizontal",
       "position": 3,
       "length": 2,
       "player": false
     },
+    {
+      "orientation": "horizontal",
+      "position": 9,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 18,
+      "length": 3,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 24,
+      "length": 2,
+      "player": false
+    },
+	{
+      "orientation": "horizontal",
+      "position": 26,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 0,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 15,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 22,
+      "length": 2,
+      "player": false
+    },
 	{
       "orientation": "vertical",
-      "position": 23,
+      "position": 17,
       "length": 3,
       "player": false
     }
+	
   ]
 }
+

@@ -13,11 +13,11 @@ tilePadding = Math.round(16 * fr)
 carPadding = Math.round(6 * fr)
 moves = 0 # score (lower is better)
 perfect_score = 0
-max_score = 30 # max = perfect_score + max_score
+max_score = 20 # max = perfect_score + max_score
 win = false
 identifier = d3.select(container).attr('data-identifier')
 
-duration = moment.duration(5, 'minutes')
+duration = moment.duration(3, 'minutes')
 interval = 1000
 timeLeft = 0
 

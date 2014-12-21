@@ -1,30 +1,18 @@
 {
-  "level": "easy",
+	 "level": "Oefenlevel 1/4",
   "perfect_score": 15,
   "cars": [
     {
       "orientation": "horizontal",
-      "position": 0,
-      "length": 3,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 30,
-      "length": 3,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 22,
+      "position": 6,
       "length": 2,
       "player": false
     },
     {
-      "orientation": "horizontal",
-      "position": 12,
+      "orientation": "vertical",
+      "position": 5,
       "length": 2,
-      "player": true
+      "player": false
     },
     {
       "orientation": "vertical",
@@ -33,20 +21,50 @@
       "player": false
     },
     {
-      "orientation": "vertical",
-      "position": 5,
-      "length": 3,
-      "player": false
+      "orientation": "horizontal",
+      "position": 15,
+      "length": 2,
+      "player": true
     },
     {
       "orientation": "vertical",
+      "position": 17,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
       "position": 18,
       "length": 2,
       "player": false
     },
     {
       "orientation": "vertical",
+      "position": 21,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 24,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 25,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
       "position": 28,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 31,
       "length": 2,
       "player": false
     }

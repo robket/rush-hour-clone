@@ -1,5 +1,5 @@
 {
-  "level": "easy",
+	 "level": "Oefenlevel 4/4",
   "perfect_score": 16,
   "cars": [
     {
@@ -86,5 +86,7 @@
       "length": 2,
       "player": false
     }
+	
   ]
 }
+
