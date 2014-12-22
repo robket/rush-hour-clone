@@ -15,6 +15,22 @@ app.set('view engine', 'jade');
 app.listen(9000);
 console.log("Survey listening at port 9000")
 
+function getDateTime() {
+  var date = new Date();
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+  return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+}
+
 // routes as normal
 app.post('/store', function (req, res) {
   var json = req.body
@@ -30,7 +46,8 @@ app.post('/store', function (req, res) {
         moves: winner.moves,
         time: winner.time,
         UA: user_agent,
-        IP: (req.headers['x-forwarded-for'] || req.connection.remoteAddress)
+        IP: (req.headers['x-forwarded-for'] || req.connection.remoteAddress),
+        stored: getDateTime()
       });
     }
     if (json.hasOwnProperty('move')) {
@@ -42,7 +59,8 @@ app.post('/store', function (req, res) {
         time: move.time,
         description: move.description,
         UA: user_agent,
-        IP: (req.headers['x-forwarded-for'] || req.connection.remoteAddress)
+        IP: (req.headers['x-forwarded-for'] || req.connection.remoteAddress),
+        stored: getDateTime()
       });
     }
   });
