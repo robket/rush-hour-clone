@@ -23,7 +23,7 @@ timeLeft = 0
 
 updateTimer = ->
   duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds')
-  if duration.asMilliseconds() < 0
+  if duration.asMilliseconds() < 0 and !win
     clearInterval(timer)
     moves = perfect_score + max_score
     win = true # prevent overwriting score

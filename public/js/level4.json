@@ -1,6 +1,6 @@
 {
-	"level": "Oefenlevel 4/4",
-  "perfect_score": 24,
+	 "level": "Oefenlevel 4/4",
+  "perfect_score": 20,
   "cars": [
     {
       "orientation": "horizontal",
@@ -16,29 +16,35 @@
     },
     {
       "orientation": "horizontal",
-      "position": 27,
+      "position": 22,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "horizontal",
+      "position": 26,
       "length": 2,
       "player": false
     },
     {
       "orientation": "horizontal",
       "position": 32,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "horizontal",
-      "position": 34,
-      "length": 2,
+      "length": 3,
       "player": false
     },
     {
       "orientation": "vertical",
-      "position": 6,
+      "position": 12,
       "length": 2,
       "player": false
     },
 	{
+      "orientation": "vertical",
+      "position": 24,
+      "length": 2,
+      "player": false
+    },
+    {
       "orientation": "vertical",
       "position": 25,
       "length": 2,
@@ -46,40 +52,22 @@
     },
     {
       "orientation": "vertical",
-      "position": 2,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
-      "position": 20,
-      "length": 2,
-      "player": false
-    },
-    {
-      "orientation": "vertical",
       "position": 3,
-      "length": 3,
+      "length": 2,
+      "player": false
+    },
+    {
+      "orientation": "vertical",
+      "position": 15,
+      "length": 2,
       "player": false
     },
 	{
       "orientation": "vertical",
       "position": 4,
-      "length": 2,
-      "player": false
-    },
-	{
-      "orientation": "vertical",
-      "position": 11,
-      "length": 2,
-      "player": false
-    },
-	{
-      "orientation": "vertical",
-      "position": 23,
-      "length": 2,
+      "length": 3,
       "player": false
     }
-	
   ]
 }
+
