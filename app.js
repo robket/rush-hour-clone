@@ -1,4 +1,5 @@
 var express = require("express");
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var harp = require("harp");
 var GoogleSpreadsheet = require("google-spreadsheet");
@@ -6,6 +7,11 @@ var config = require('./config');
 var sheet = new GoogleSpreadsheet(config.spreadsheet_key);
 var app = express();
 
+app.use(session({
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(express.static(__dirname + "/public"));
 app.use(harp.mount(__dirname + "/public"));
 app.use(bodyParser.json());
@@ -32,9 +38,17 @@ function getDateTime() {
 }
 
 // routes as normal
+app.post('/start', function (req, res) {
+  var sess=req.session;
+  sess.name = req.body.name;
+  res.redirect('/1')
+})
 app.post('/store', function (req, res) {
   var json = req.body
-  console.log(json)
+  var sess=req.session;
+  var name = 'Onbekend';
+  if (sess.name) { name = sess.name; }
+  console.log(name, json)
 
   var user_agent = req.get('User-Agent');
   sheet.setAuth(config.google_username, config.google_password, function(err){
@@ -42,6 +56,7 @@ app.post('/store', function (req, res) {
       winner = json.winner
       sheet.addRow(1, {
         identifier: winner.identifier,
+        name: name,
         level: move.level,
         moves: winner.moves,
         time: winner.time,
@@ -54,6 +69,7 @@ app.post('/store', function (req, res) {
       move = json.move
       sheet.addRow(2, {
         identifier: move.identifier,
+        name: name,
         level: move.level,
         moves: move.moves,
         time: move.time,
@@ -68,9 +84,6 @@ app.post('/store', function (req, res) {
   res.send('Saved, thank you');
 })
 
-app.get('/', function(req, res) {
-  res.redirect('/1')
-})
 app.get('/:id', function (req, res) {
   var date = new Date();
   var components = [

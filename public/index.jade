@@ -1,0 +1,12 @@
+doctype
+html
+  head
+    link(rel="stylesheet" href="css/main.css")
+    meta(name="robots" content="NOINDEX, NOFOLLOW")
+    script(src="/js/zepto.min.js" charset="utf-8")
+    title Rush Hour Survey
+  body
+    form#input-form(action="/start" method="POST")
+      p Vul hier uw naam in.
+      input#input-name(placeholder="Vul hier uw naam in" name="name" type="text")
+      input#form-submit(type="submit") Start
