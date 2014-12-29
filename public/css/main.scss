@@ -68,3 +68,14 @@ h3{
   }
   #timer { font-weight: bold; }
 }
+#content .wrapper { width: 600px; margin: 0 auto; text-align: left; }
+p.question { font-weight: bold; }
+table.radios {
+  tr td {
+    text-align: center;
+    &:first-child {
+      text-align: left;
+    }
+  }
+  th { text-align: center; width: 33px; font-weight: normal; }
+}

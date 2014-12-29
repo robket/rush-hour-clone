@@ -1,15 +1,21 @@
 doctype
 html
   head
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
     link(rel="stylesheet" href="css/main.css")
     script(src="http://d3js.org/d3.v3.min.js" charset="utf-8")
     script(src="http://momentjs.com/downloads/moment.min.js" charset="utf-8")
     script(src="/js/zepto.min.js" charset="utf-8")
     meta(name="robots" content="NOINDEX, NOFOLLOW")
   body
-    p Click on the square area below to start the game
+    p Door op het grijze vlak hieronder te klikken wordt de puzzel gestart.
+    p Klik en sleep de blokken (auto's) om de het groene blok naar de exit te brengen.
+
     p#status
-    p#status2
+    p#global
+    if level > 4
+      script.
+        $('#global').load('/info')
     #content
       ul#game-stats
         li Perfect score: 
@@ -19,8 +25,16 @@ html
           span#moves.value 0
       #game(data-level=level, data-identifier=identifier)
         .exit
-      p Click and drag the cars to guide the green car to the exit.
-      if next_level != "11"
+
+      p#status2
+
+      if next_level == "5"
         p
-          a(href="/"+next_level+"?id="+identifier) Next level
+          a.btn.btn-primary(href="/part2") Verder
+      else if next_level == "11"
+        p
+          a.btn.btn-primary(href="/part4") Verder
+      else
+        p
+          a.btn.btn-primary(href="/"+next_level) Volgende level
     script(src="js/puzzle.js")

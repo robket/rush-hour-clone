@@ -9,6 +9,9 @@ var app = express();
 
 app.use(session({
   secret: config.secret,
+  cookie: {
+     httpOnly: false
+   },
   resave: false,
   saveUninitialized: true
 }));
@@ -37,27 +40,93 @@ function getDateTime() {
   return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
 }
 
-// routes as normal
-app.post('/start', function (req, res) {
-  var sess=req.session;
-  sess.name = req.body.name;
+// Form routes
+app.post('/step1', function (req, res) {
+  var sess = req.session;
+  sess.scores = {}
+  sess.group = Math.round(Math.random())
+  sess.vraag1 = req.body.vraag1;
+  sess.vraag2 = req.body.vraag2;
+  sess.vraag3 = req.body.vraag3;
+  sess.name = 'Onbekend';
+  if (req.body.name) { sess.name = req.body.name; }
+  // TODO: Set experiment group
+  console.log(sess.name, sess.vraag1, sess.vraag2, sess.vraag3);
+
+  var date = new Date();
+  var components = [
+    date.getMilliseconds(),
+    date.getSeconds(),
+    date.getMinutes(),
+    date.getHours(),
+    date.getDate(),
+    date.getMonth(),
+    date.getYear()
+  ];
+
+  sess.identifier = components.join(".");
   res.redirect('/1')
 })
+app.post('/step2', function (req, res) {
+  var sess = req.session;
+  for(var z = 1; z <= 5; z++) {
+    sess['vraag'+(z+3)] = req.body['vraag'+z];
+  }
+  res.redirect('/part3')
+})
+app.post('/step3', function (req, res) {
+  var sess = req.session;
+  for(var z = 1; z <= 9; z++) {
+    sess['vraag'+(z+8)] = req.body['vraag'+z];
+  }
+  res.redirect('/5')
+})
+app.post('/step4', function (req, res) {
+  var sess = req.session;
+  for(var z = 1; z <= 16; z++) {
+    sess['vraag'+(z+17)] = req.body['vraag'+z];
+  }
+
+  var user_agent = req.get('User-Agent');
+  sheet.setAuth(config.google_username, config.google_password, function(err){
+    var data = {
+      identifier: sess.identifier,
+      name: sess.name,
+      UA: user_agent,
+      IP: (req.headers['x-forwarded-for'] || req.connection.remoteAddress),
+      stored: getDateTime(),
+      group: sess.group,
+      oefenscore: getPracticeScore(sess.scores),
+      score: getRealScore(sess.scores)
+    };
+    for (var n = 1; n <= 33; n++) {
+      data['vraag'+n] = sess['vraag'+n];
+    }
+    sheet.addRow(1, data);
+  });
+
+  res.redirect('/end')
+})
+
+// routes as normal
 app.post('/store', function (req, res) {
   var json = req.body
   var sess=req.session;
-  var name = 'Onbekend';
-  if (sess.name) { name = sess.name; }
+  var name = sess.name;
   console.log(name, json)
+  // Store scores to session
+  if (json.hasOwnProperty('winner')) {
+    sess.scores[json.winner.level] = json.winner.moves - json.winner.perfect;
+  }
 
   var user_agent = req.get('User-Agent');
   sheet.setAuth(config.google_username, config.google_password, function(err){
     if (json.hasOwnProperty('winner')) {
-      winner = json.winner
-      sheet.addRow(1, {
+      winner = json.winner;
+      sheet.addRow(2, {
         identifier: winner.identifier,
         name: name,
-        level: move.level,
+        level: winner.level,
         moves: winner.moves,
         time: winner.time,
         UA: user_agent,
@@ -67,7 +136,7 @@ app.post('/store', function (req, res) {
     }
     if (json.hasOwnProperty('move')) {
       move = json.move
-      sheet.addRow(2, {
+      sheet.addRow(3, {
         identifier: move.identifier,
         name: name,
         level: move.level,
@@ -81,26 +150,58 @@ app.post('/store', function (req, res) {
     }
   });
 
-  res.send('Saved, thank you');
+  res.send('Score opgeslagen, u kunt door naar het volgende level');
 })
+
+function getPracticeScore(scores) {
+  var score = 0;
+  for (var n = 1; n <= 4; n++) {
+    if (scores[''+n]) { score += scores[''+n]; }
+  }
+  return score;
+}
+function getRealScore(scores) {
+  var score = 0;
+  for (var n = 5; n <= 10; n++) {
+    if (scores[''+n]) { score += scores[''+n]; }
+  }
+  return score;
+}
+
+app.get('/score', function(req, res) {
+  var sess = req.session;
+  var score = getPracticeScore(sess.scores);
+  res.send('' + score);
+});
+
+app.get('/target', function(req, res) {
+  var sess = req.session;
+  if (sess.group == 1) {
+    res.send('' + getTarget(getPracticeScore(sess.scores)));
+  } else {
+    //res.send('' + sess.vraag8) // user defined score
+    res.send('' + 51) // fixed target
+  }
+});
+
+app.get('/group', function(req, res) {
+  var sess = req.session;
+  res.send('' + sess.group);
+});
+app.get('/info', function(req, res) {
+  var sess = req.session;
+  var globalScore = getRealScore(sess.scores);
+  res.send('Uw score tot zover: ' + globalScore);
+});
 
 app.get('/:id', function (req, res) {
-  var date = new Date();
-  var components = [
-    date.getMilliseconds(),
-    date.getSeconds(),
-    date.getMinutes(),
-    date.getHours(),
-    date.getDate(),
-    date.getMonth(),
-    date.getYear()
-  ];
-
-  var id = components.join(".");
-  if (req.query['id']) {
-    id = req.query['id'];
-  }
+  var sess=req.session;
   var level = parseInt(req.params.id)
   var next_level = (level + 1).toString()
-  res.render('../public/game', { identifier: id, level: level.toString(), next_level: next_level });
-})
+  res.render('../public/game', { identifier: sess.identifier, level: level.toString(), next_level: next_level });
+});
+
+function getTarget(score) {
+  var table = [17, 18, 20, 21, 23, 24, 26, 28, 29, 31, 32, 34, 35, 37, 39, 40, 42, 43, 45, 46, 48, 50, 51, 53, 54, 56, 58, 59, 61, 62, 64, 65, 67, 69, 70, 72, 73, 75, 76, 78, 80, 81, 83, 84, 86, 88, 89, 91, 92, 94, 95, 97, 99, 100, 102, 103, 105, 106, 108, 110, 111];
+  return table[score];
+}

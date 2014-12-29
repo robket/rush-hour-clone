@@ -29,10 +29,11 @@ updateTimer = ->
     win = true # prevent overwriting score
     time = '00:00'
     d3.select('#status')
-      .text('Time is up! ' + time + ' and ' + moves + ' moves')
-    d3.select('#status2').text('Please wait while we save the statistics')
-    $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves }},
+      .text('Tijd is op! ' + time + ' en ' + moves + ' moves')
+    d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
+    $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
       (result) -> d3.select('#status2').text(result)
+    $("#game").hide();
   else
     timeLeft = moment(duration.asMilliseconds()).format('mm:ss')
     d3.select('#timer').text(timeLeft)
@@ -73,9 +74,10 @@ dragMove = (d) ->
           time = d3.select('#timer').text()
           clearInterval(timer)
           d3.select('#status')
-            .text('You won! ' + time + ' and ' + (moves + 1) + ' moves')
-          d3.select('#status2').text('Please wait while we save your score')
-          $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves + 1 }},
+            .text('Goed gedaan! Puzzel opgelost in ' + time + ' en ' + (moves + 1) + ' moves')
+          d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
+          $("#game").hide();
+          $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves + 1, perfect: perfect_score }},
             (result) -> d3.select('#status2').text(result)
 
 dragEnd = (d) ->
@@ -90,6 +92,16 @@ dragEnd = (d) ->
       moves++
       $.post '/store', {"move": { level: level, identifier: identifier, time: timeLeft, moves: moves, description: description }},
         (result) -> console.log('Move ' + result)
+    else
+      # Reached limit of moves
+      win = true
+      d3.select('#status')
+        .text('Maximale score bereikt, volgende puzzel weer een kans')
+      d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
+      $("#game").hide();
+      $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
+        (result) -> d3.select('#status2').text(result)
+
 
     d3.select('#moves').text(moves)
 

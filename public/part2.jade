@@ -1,0 +1,42 @@
+.wrapper
+  p Je hebt een score behaald van +<em id="score"></em>.
+  script.
+    $('#score').load('/score')
+  p Nu zal de echte test beginnen, je zal 6 soortgelijke puzzels moeten oplossen waarbij je 3 minuten per puzzel de tijd krijgt. De vier oefenpuzzels die je net hebt gemaakt geven goed de komende zes puzzels weer. Voordat we uitleggen hoe u de prijs kan winnen willen u eerst een aantal korte vragen stellen.
+
+  form#input-form(action="/step2" method="POST")
+    p.question Geef aan in hoeverre jij het eens bent met de volgende stelling:
+    mixin radios
+      table.table.table-striped.radios
+        tr
+          th
+          th 1 (helemaal mee oneens)
+          each val in [2, 3, 4, 5, 6]
+            th= val 
+          th 7 (helemaal mee eens)
+        block
+    mixin row(n, question)
+      tr
+        td= question
+        each val in [1, 2, 3, 4, 5, 6, 7]
+          td
+            input(type="radio" name="vraag#{n}" value=val)
+    +radios
+      +row(1, "Ik was geconcentreerd tijdens het maken van de oefenpuzzels")
+      +row(2, "De puntentelling is duidelijk")
+      +row(3, "Ik vond de puzzels moeilijk")
+      +row(4, "Ik ben erg tevreden met mijn behaalde resultaat")
+
+    #customscore.hidden
+      p.question Mijn doel voor de komende 6 puzzels is om een score te halen van: (vul een getal in)
+      .field
+        input(placeholder="Vul hier uw score in" name="vraag5" type="text")
+    script.
+      //$.get('/group', {}, function(data) {
+      //  if (parseInt(data) == 0) {
+      //    $('#customscore').removeClass('hidden');
+      //  }
+      //});
+    br
+    p
+      input#form-submit(type="submit" value="Verder")

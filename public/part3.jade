@@ -1,0 +1,56 @@
+.wrapper
+  p Uw doel is gebaseerd op de score van puzzel twee tot en met vier. Hierbij hebben wij gekeken hoe goed u deze puzzels heeft gemaakt. Daarom is uw eerlijkheid op de vorige vragen ook van uiterst belang voor de resultaten van dit onderzoek. Omdat uw score van de oefenvragen <em id="score"></em> was verwachten wij dat u een score van <em class='target'></em> moet kunnen bereiken bij de echte test. Uw doel is tot stand gekomen door de normale verdeling van de oefenpuzzels te vergelijken met de normale verdeling van de echte puzzels. Hierbij is gebruik gemaakt van de z-score.
+  p Uw doel: 
+    strong.target
+    |  (dat is +
+    span.target2
+    |  per puzzel)
+  script.
+    $('#score').load('score');
+    $('.target').load('target', function() {
+      $('.target2').text(
+        Math.round((parseInt($('.target').text())/6)*10)/10
+      );
+    });
+
+  form(action="/step3" method="POST")
+    p.question Heeft u bovenstaande tekst aandachtig gelezen?
+    .field
+      input(type="radio" name="vraag1" value="ja")
+      |  Ja
+    .field
+      input(type="radio" name="vraag1" value="nee")
+      |  Nee
+    br
+    p.question Geef aan in hoeverre jij het eens bent met de volgende stelling:
+    mixin radios
+      table.table.table-striped.radios
+        tr
+          th
+          th 1 (helemaal mee oneens)
+          each val in [2, 3, 4, 5, 6]
+            th= val 
+          th 7 (helemaal mee eens)
+        block
+    mixin row(n, question)
+      tr
+        td= question
+        each val in [1, 2, 3, 4, 5, 6, 7]
+          td
+            input(type="radio" name="vraag#{n}" value=val)
+    +radios
+      +row(2, "Het is duidelijk wat ik moet doen")
+      +row(3, "Het is duidelijk welke score ik moet halen")
+      +row(4, "Het is moeilijk om dit doel serieus te nemen")
+      +row(5, "Eerlijk gezegd maakt het mij niet uit of ik dit doel haal")
+      +row(6, "Ik verwacht dat ik het voor mij gezette doel ga halen")
+      +row(7, "Ik ben in staat om de meeste doelen te halen die ik voor mijzelf zelf")
+      +row(8, "Ik ben in staat om succesvol veel uitdagingen te overwinnen")
+
+    p.question (Overige) opmerkingen
+    .field
+      input(type="text" name="vraag9")
+
+    p Als je op verder klikt komende de laatste 6 puzzels.
+    p
+      input(type="submit" value="Verder")
