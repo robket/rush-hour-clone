@@ -83,7 +83,7 @@ app.post('/step3', function (req, res) {
 })
 app.post('/step4', function (req, res) {
   var sess = req.session;
-  for(var z = 1; z <= 16; z++) {
+  for(var z = 1; z <= 17; z++) {
     sess['vraag'+(z+17)] = req.body['vraag'+z];
   }
 
@@ -99,7 +99,7 @@ app.post('/step4', function (req, res) {
       oefenscore: getPracticeScore(sess.scores),
       score: getRealScore(sess.scores)
     };
-    for (var n = 1; n <= 33; n++) {
+    for (var n = 1; n <= 34; n++) {
       data['vraag'+n] = sess['vraag'+n];
     }
     sheet.addRow(1, data);
