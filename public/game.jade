@@ -33,6 +33,9 @@ html
             tr
               th Totaalscore
               td#realscore
+            tr
+              th Doel
+              td#target
 
             script.
               $('.load-score').each(function() {
@@ -40,6 +43,7 @@ html
                 $(this).load('/score/'+level);
               });
               $('#practicescore').load('/score');
+              $('#target').load('/target');
               $('#realscore').load('/info');
 
 
