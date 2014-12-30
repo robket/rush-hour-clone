@@ -92,8 +92,6 @@ dragEnd = (d) ->
   if Math.abs(distance) > 0
     if moves < (perfect_score + max_score)
       moves++
-      $.post '/store', {"move": { level: level, identifier: identifier, time: timeLeft, moves: moves, description: description }},
-        (result) -> console.log('Move ' + result)
     else
       # Reached limit of moves
       if !win
@@ -105,6 +103,9 @@ dragEnd = (d) ->
         d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
         $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
           (result) -> d3.select('#status2').text(result)
+
+    $.post '/store', {"move": { level: level, identifier: identifier, time: timeleft, moves: moves, description: description }},
+      (result) -> console.log('Move ' + result)
 
     d3.select('#moves').text(moves)
 
