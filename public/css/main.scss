@@ -79,3 +79,11 @@ table.radios {
   }
   th { text-align: center; width: 33px; font-weight: normal; }
 }
+
+#content-wrapper {
+  width: 680px;
+  margin: 0 auto;
+}
+#game-info { float: left; }
+#game-wrapper { float: right; }
+#game-info table { width: 174px; }

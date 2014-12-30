@@ -174,6 +174,15 @@ app.get('/score', function(req, res) {
   res.send('' + score);
 });
 
+app.get('/score/:id', function(req, res) {
+  var sess=req.session;
+  var scores = sess.scores;
+  var level = parseInt(req.params.id)
+  var score = 0;
+  if (scores[''+level]) { score += scores[''+level]; }
+  res.send('+' + score);
+});
+
 app.get('/target', function(req, res) {
   var sess = req.session;
   if (sess.group == 1) {
@@ -191,7 +200,7 @@ app.get('/group', function(req, res) {
 app.get('/info', function(req, res) {
   var sess = req.session;
   var globalScore = getRealScore(sess.scores);
-  res.send('Uw score tot zover: ' + globalScore);
+  res.send('' + globalScore);
 });
 
 app.get('/:id', function (req, res) {

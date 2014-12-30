@@ -12,29 +12,56 @@ html
     p Klik en sleep de blokken (auto's) om de het groene blok naar de exit te brengen.
 
     p#status
-    p#global
-    if level > 4
-      script.
-        $('#global').load('/info')
     #content
-      ul#game-stats
-        li Perfect score: 
-          span#perfect-score.value
-        li#timer
-        li Moves: 
-          span#moves.value 0
-      #game(data-level=level, data-identifier=identifier)
-        .exit
+      #content-wrapper.clearfix
+        #game-info
+          p Oefenlevels
+          table.table.table-striped
+            each val in [1, 2, 3, 4]
+              tr
+                th Score puzzel #{val}
+                td.load-score(data-level= val)
+            tr
+              th Totaalscore
+              td#practicescore
+
+          table.table.table-striped
+            each val in [1, 2, 3, 4, 5, 6]
+              tr
+                th Score puzzel #{val}
+                td.load-score(data-level= val+4)
+            tr
+              th Totaalscore
+              td#realscore
+
+            script.
+              $('.load-score').each(function() {
+                var level = $(this).attr('data-level');
+                $('.load-score').load('/score/'+level);
+              });
+              $('#practicescore').load('/score');
+              $('#realscore').load('/info');
+
+
+        #game-wrapper
+          ul#game-stats
+            li Perfect score: 
+              span#perfect-score.value
+            li#timer
+            li Moves: 
+              span#moves.value 0
+          #game(data-level=level, data-identifier=identifier)
+            .exit
 
       p#status2
 
       if next_level == "5"
         p
-          a.btn.btn-primary(href="/part2") Verder
+          a#volgende.hidden.btn.btn-primary(href="/part2") Verder
       else if next_level == "11"
         p
-          a.btn.btn-primary(href="/part4") Verder
+          a#volgende.hidden.btn.btn-primary(href="/part4") Verder
       else
         p
-          a.btn.btn-primary(href="/"+next_level) Volgende level
+          a#volgende.hidden.btn.btn-primary(href="/"+next_level) Volgende level
     script(src="js/puzzle.js")

@@ -27,6 +27,7 @@ updateTimer = ->
     clearInterval(timer)
     moves = perfect_score + max_score
     win = true # prevent overwriting score
+    $("#volgende").removeClass('hidden')
     time = '00:00'
     d3.select('#status')
       .text('Tijd is op! ' + time + ' en ' + moves + ' moves')
@@ -71,6 +72,7 @@ dragMove = (d) ->
         # Player won
         if !win
           win = true
+          $("#volgende").removeClass('hidden')
           time = d3.select('#timer').text()
           clearInterval(timer)
           d3.select('#status')
@@ -94,14 +96,15 @@ dragEnd = (d) ->
         (result) -> console.log('Move ' + result)
     else
       # Reached limit of moves
-      win = true
-      time = d3.select('#timer').text()
-      d3.select('#status')
-        .text('Maximale score bereikt, volgende puzzel weer een kans')
-      d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
-      $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
-        (result) -> d3.select('#status2').text(result)
-
+      if !win
+        win = true
+        $("#volgende").removeClass('hidden')
+        time = d3.select('#timer').text()
+        d3.select('#status')
+          .text('Maximale score bereikt, volgende puzzel weer een kans')
+        d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
+        $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
+          (result) -> d3.select('#status2').text(result)
 
     d3.select('#moves').text(moves)
 
