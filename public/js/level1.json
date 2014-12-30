@@ -27,6 +27,12 @@
       "player": true
     },
     {
+      "orientation": "vertical",
+      "position": 17,
+      "length": 2,
+      "player": false
+    },
+    {
       "orientation": "horizontal",
       "position": 18,
       "length": 2,
