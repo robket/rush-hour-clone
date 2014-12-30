@@ -37,7 +37,7 @@ html
             script.
               $('.load-score').each(function() {
                 var level = $(this).attr('data-level');
-                $('.load-score').load('/score/'+level);
+                $(this).load('/score/'+level);
               });
               $('#practicescore').load('/score');
               $('#realscore').load('/info');
