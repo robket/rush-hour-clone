@@ -95,6 +95,7 @@ dragEnd = (d) ->
     else
       # Reached limit of moves
       win = true
+      time = d3.select('#timer').text()
       d3.select('#status')
         .text('Maximale score bereikt, volgende puzzel weer een kans')
       d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
