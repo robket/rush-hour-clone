@@ -99,7 +99,6 @@ dragEnd = (d) ->
       d3.select('#status')
         .text('Maximale score bereikt, volgende puzzel weer een kans')
       d3.select('#status2').text('Score opslaan.. (een moment geduld aub)')
-      $("#game").hide();
       $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
         (result) -> d3.select('#status2').text(result)
 
