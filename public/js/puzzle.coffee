@@ -104,7 +104,8 @@ dragEnd = (d) ->
         $.post '/store', {"winner": { level: level, identifier: identifier, time: time, moves: moves, perfect: perfect_score }},
           (result) -> d3.select('#status2').text(result)
 
-    $.post '/store', {"move": { level: level, identifier: identifier, time: timeleft, moves: moves, description: description }},
+    time = d3.select('#timer').text()
+    $.post '/store', {"move": { level: level, identifier: identifier, time: time, moves: moves, description: description }},
       (result) -> console.log('Move ' + result)
 
     d3.select('#moves').text(moves)
