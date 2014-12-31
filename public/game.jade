@@ -15,37 +15,38 @@ html
     #content
       #content-wrapper.clearfix
         #game-info
-          p Oefenlevels
-          table.table.table-striped
-            each val in [1, 2, 3, 4]
+          if level < 5
+            p Oefenlevels
+            table.table.table-striped
+              each val in [1, 2, 3, 4]
+                tr
+                  th Score puzzel #{val}
+                  td.load-score(data-level= val)
               tr
-                th Score puzzel #{val}
-                td.load-score(data-level= val)
-            tr
-              th Totaalscore
-              td#practicescore
-
-          table.table.table-striped
-            each val in [1, 2, 3, 4, 5, 6]
+                th Totaalscore
+                td#practicescore
+          else
+            table.table.table-striped
+              each val in [1, 2, 3, 4, 5, 6]
+                tr
+                  th Score puzzel #{val}
+                  td.load-score(data-level= val+4)
               tr
-                th Score puzzel #{val}
-                td.load-score(data-level= val+4)
-            tr
-              th Totaalscore
-              td#realscore
-            tr
-              th Doel
-              td +
-                span#target
+                th Totaalscore
+                td#realscore
+              tr
+                th Doel
+                td +
+                  span#target
 
-            script.
-              $('.load-score').each(function() {
-                var level = $(this).attr('data-level');
-                $(this).load('/score/'+level);
-              });
-              $('#practicescore').load('/score');
-              $('#target').load('/target');
-              $('#realscore').load('/info');
+          script.
+            $('.load-score').each(function() {
+              var level = $(this).attr('data-level');
+              $(this).load('/score/'+level);
+            });
+            $('#practicescore').load('/score');
+            $('#target').load('/target');
+            $('#realscore').load('/info');
 
 
         #game-wrapper
