@@ -21,52 +21,19 @@
         th 7 (helemaal mee eens)
       tr
         td Ik ben bekend met het spel Rush Hour
-        td
-          input(type="radio" name="vraag1" value="1")
-        td
-          input(type="radio" name="vraag1" value="2")
-        td
-          input(type="radio" name="vraag1" value="3")
-        td
-          input(type="radio" name="vraag1" value="4")
-        td
-          input(type="radio" name="vraag1" value="5")
-        td
-          input(type="radio" name="vraag1" value="6")
-        td
-          input(type="radio" name="vraag1" value="7")
+        each val in [1,2,3,4,5,6,7]
+          td
+            input(type="radio" name="vraag1" value=val required)
       tr
         td Ik heb het spel Rush Hour vaak (ook vroeger) gespeeld
-        td
-          input(type="radio" name="vraag2" value="1")
-        td
-          input(type="radio" name="vraag2" value="2")
-        td
-          input(type="radio" name="vraag2" value="3")
-        td
-          input(type="radio" name="vraag2" value="4")
-        td
-          input(type="radio" name="vraag2" value="5")
-        td
-          input(type="radio" name="vraag2" value="6")
-        td
-          input(type="radio" name="vraag2" value="7")
+        each val in [1,2,3,4,5,6,7]
+          td
+            input(type="radio" name="vraag2" value=val required)
       tr
         td Ik verwacht dat ik goed ben in het spel Rush Hour
-        td
-          input(type="radio" name="vraag3" value="1")
-        td
-          input(type="radio" name="vraag3" value="2")
-        td
-          input(type="radio" name="vraag3" value="3")
-        td
-          input(type="radio" name="vraag3" value="4")
-        td
-          input(type="radio" name="vraag3" value="5")
-        td
-          input(type="radio" name="vraag3" value="6")
-        td
-          input(type="radio" name="vraag3" value="7")
+        each val in [1,2,3,4,5,6,7]
+          td
+            input(type="radio" name="vraag3" value=val required)
     p.question Vul hieronder uw naam in (optioneel, mag leeg gelaten worden):
     .field
       input#input-name(placeholder="Vul hier uw naam in" name="name" type="text")

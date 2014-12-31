@@ -16,10 +16,10 @@
   form(action="/step3" method="POST")
     p.question Heeft u bovenstaande tekst aandachtig gelezen?
     .field
-      input(type="radio" name="vraag1" value="ja")
+      input(type="radio" name="vraag1" value="ja" required)
       |  Ja
     .field
-      input(type="radio" name="vraag1" value="nee")
+      input(type="radio" name="vraag1" value="nee" required)
       |  Nee
     br
     p.question Geef aan in hoeverre jij het eens bent met de volgende stelling:
@@ -37,7 +37,7 @@
         td= question
         each val in [1, 2, 3, 4, 5, 6, 7]
           td
-            input(type="radio" name="vraag#{n}" value=val)
+            input(type="radio" name="vraag#{n}" value=val required)
     +radios
       +row(2, "Het is duidelijk wat ik moet doen")
       +row(3, "Het is duidelijk welke score ik moet halen")

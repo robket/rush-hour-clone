@@ -19,7 +19,7 @@
         td= question
         each val in [1, 2, 3, 4, 5, 6, 7]
           td
-            input(type="radio" name="vraag#{n}" value=val)
+            input(type="radio" name="vraag#{n}" value=val required)
     +radios
       +row(1, "Ik was geconcentreerd tijdens het maken van de puzzels")
       +row(2, "Ik vond de puzzels moeilijk")
