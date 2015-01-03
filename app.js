@@ -83,6 +83,7 @@ app.post('/step3', function (req, res) {
 })
 app.post('/step4', function (req, res) {
   var sess = req.session;
+  var target = targetFromSess(sess);
   for(var z = 1; z <= 17; z++) {
     sess['vraag'+(z+17)] = req.body['vraag'+z];
   }
@@ -97,7 +98,8 @@ app.post('/step4', function (req, res) {
       stored: getDateTime(),
       group: sess.group,
       oefenscore: getPracticeScore(sess.scores),
-      score: getRealScore(sess.scores)
+      score: getRealScore(sess.scores),
+      target: targetFromSess(sess)
     };
     for (var n = 1; n <= 34; n++) {
       data['vraag'+n] = sess['vraag'+n];
@@ -183,14 +185,19 @@ app.get('/score/:id', function(req, res) {
   res.send('+' + score);
 });
 
-app.get('/target', function(req, res) {
-  var sess = req.session;
+function targetFromSess(sess) {
+  var score = 0;
   if (sess.group == 1) {
-    res.send('' + getTarget(getPracticeScore(sess.scores)));
+    score = getTarget(getPracticeScore(sess.scores));
   } else {
     //res.send('' + sess.vraag8) // user defined score
-    res.send('' + 51) // fixed target
+    score = 51; // fixed target
   }
+  return score;
+}
+app.get('/target', function(req, res) {
+  var sess = req.session;
+  res.send('' + targetFromSess(sess));
 });
 
 app.get('/group', function(req, res) {
