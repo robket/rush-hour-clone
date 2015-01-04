@@ -1,5 +1,14 @@
 .wrapper
-  p Uw doel is gebaseerd op de score van puzzel twee tot en met vier. Hierbij hebben wij gekeken hoe goed u deze puzzels heeft gemaakt. Daarom is uw eerlijkheid op de vorige vragen ook van uiterst belang voor de resultaten van dit onderzoek. Omdat uw score van de oefenvragen <em id="score"></em> was verwachten wij dat u een score van <em class='target'></em> moet kunnen bereiken bij de echte test. Uw doel is tot stand gekomen door de normale verdeling van de oefenpuzzels te vergelijken met de normale verdeling van de echte puzzels. Hierbij is gebruik gemaakt van de z-score.
+  p.hidden#controletext In het bedrijf waarin u werkzaam bent wordt er gebruik gemaakt van een bonussysteem waarin iedereen hetzelfde target heeft. Als u dit doel haalt dan maakt u kans op de bonus en als u dit doel niet haalt, dan zult u geen bonus krijgen. De bonus heeft een waarde van 150 euro; dit is een overhemd bij oger (samen met het vermaken van uw pak) voor mannen en een waardebon bij de bijenkorf voor vrouwen.
+  p.hidden#experimenteletext In het bedrijf waarin u werkzaam bent wordt er gebruik gemaakt van een bonussysteem waarin iedereen een bonus krijgt op basis van zijn of haar capaciteiten. Dit experiment heeft uw capaciteit berekend op basis van uw antwoorden op de oefenvragen 2 t/m 4. Omdat uw score van de oefenvragen <em id="score"></em> was verwachten wij dat u een score van <em class='target'></em> moet kunnen bereiken bij de echte test. Als u dit doel haalt dan maakt u kans op de bonus en als u dit doel niet haalt, dan zult u geen bonus krijgen. De bonus heeft een waarde van 150 euro; dit is een overhemd bij oger (samen met het vermaken van uw pak) voor mannen en een waardebon bij de bijenkorf voor vrouwen.
+    script.
+      $.get('/group', {}, function(data) {
+        if (parseInt(data) == 0) {
+          $('#controletext').removeClass('hidden');
+        } else {
+          $('#experimenteletext').removeClass('hidden');
+        }
+      });
   p Uw doel: 
     strong.target
     |  (dat is +

@@ -31,13 +31,7 @@
     #customscore
       p.question Mijn doel voor de komende 6 puzzels is om een score te halen van: (vul een getal in)
       .field
-        input(placeholder="Vul hier uw score in" name="vraag5" type="text")
-    script.
-      //$.get('/group', {}, function(data) {
-      //  if (parseInt(data) == 0) {
-      //    $('#customscore').removeClass('hidden');
-      //  }
-      //});
+        input(placeholder="Vul hier uw score in" name="vraag5" type="text" required)
     br
     p Hieronder kunt u uw score van de oefenlevels zien:
     table.table.table-striped
