@@ -69,7 +69,7 @@ app.post('/step1', function (req, res) {
 })
 app.post('/step2', function (req, res) {
   var sess = req.session;
-  for(var z = 1; z <= 5; z++) {
+  for(var z = 1; z <= 4; z++) {
     sess['vraag'+(z+3)] = req.body['vraag'+z];
   }
   res.redirect('/part3')
@@ -79,6 +79,7 @@ app.post('/step3', function (req, res) {
   for(var z = 1; z <= 9; z++) {
     sess['vraag'+(z+8)] = req.body['vraag'+z];
   }
+  sess['vraag'+(5+3)] = req.body['vraagx']
   res.redirect('/5')
 })
 app.post('/step4', function (req, res) {

@@ -28,25 +28,5 @@
       +row(3, "Ik vond de puzzels moeilijk")
       +row(4, "Ik ben erg tevreden met mijn behaalde resultaat")
 
-    #customscore
-      p.question Mijn doel voor de komende 6 puzzels is om een score te halen van: (vul een getal in, dit mag hetzelfde of verschillend zijn van het toegewezen doel)
-      .field
-        input(placeholder="Vul hier uw score in" name="vraag5" type="text" required)
-    br
-    p Hieronder kunt u uw score van de oefenlevels zien:
-    table.table.table-striped
-      each val in [1, 2, 3, 4]
-        tr
-          th Score puzzel #{val}
-          td.load-score(data-level= val)
-      tr
-        th Totaalscore
-        td#practicescore
-    script.
-      $('.load-score').each(function() {
-        var level = $(this).attr('data-level');
-        $(this).load('/score/'+level);
-      });
-      $('#practicescore').load('/score');
     p
       input#form-submit(type="submit" value="Verder")
