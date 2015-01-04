@@ -157,7 +157,7 @@ app.post('/store', function (req, res) {
 
 function getPracticeScore(scores) {
   var score = 0;
-  for (var n = 1; n <= 4; n++) {
+  for (var n = 2; n <= 4; n++) {
     if (scores[''+n]) { score += scores[''+n]; }
   }
   return score;
