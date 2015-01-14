@@ -80,6 +80,9 @@ app.post('/step3', function (req, res) {
     sess['vraag'+(z+8)] = req.body['vraag'+z];
   }
   sess['vraag'+(5+3)] = req.body['vraagx']
+  // Interim-save
+  saveSurvey(req, sess, 17, 1);
+
   res.redirect('/5')
 })
 app.post('/step4', function (req, res) {
@@ -89,9 +92,15 @@ app.post('/step4', function (req, res) {
     sess['vraag'+(z+17)] = req.body['vraag'+z];
   }
 
+  saveSurvey(req, sess, 34, 2);
+  res.redirect('/end')
+});
+
+function saveSurvey(req, sess, q, stage) {
   var user_agent = req.get('User-Agent');
   sheet.setAuth(config.google_username, config.google_password, function(err){
     var data = {
+      stage: stage,
       identifier: sess.identifier,
       name: sess.name,
       UA: user_agent,
@@ -102,14 +111,13 @@ app.post('/step4', function (req, res) {
       score: getRealScore(sess.scores),
       target: targetFromSess(sess)
     };
-    for (var n = 1; n <= 34; n++) {
+    for (var n = 1; n <= q; n++) {
       data['vraag'+n] = sess['vraag'+n];
     }
     sheet.addRow(1, data);
   });
+}
 
-  res.redirect('/end')
-})
 
 // routes as normal
 app.post('/store', function (req, res) {
